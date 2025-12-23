@@ -16,15 +16,13 @@
     <input type="range" id="spacing" name="spacing" min="10" max="200" value="10" data-sizing="px">
 
     <label for="blur">Blur</label>
-    <input type="range" id="blur" name="blur" min="0" max="25" data-sizing="px">
+    <input type="range" id="blur" name="blur" min="0" max="25" value="100" data-sizing="px">
 
     <label for="base">Base Color</label>
     <input type="color" id="base" name="base" value="#ffc600">
   </div>
 
-  <img
-    src="https://images.unsplash.com/photo-1765871320786-e478d7ac5777?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    width="800" height="500">
+  <img src="https://images.unsplash.com/photo-1765871320786-e478d7ac5777" width="800" height="500">
 
   <style>
     :root {
@@ -36,7 +34,7 @@
     img {
       padding: var(--spacing);
       background: var(--base);
-      filter: var(--blur);
+      filter: blur(var(--blur));
     }
 
     .hl {
@@ -62,7 +60,14 @@
   </style>
 
   <script>
+    const inputs = document.querySelectorAll('.controls input')
 
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || '';
+      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix)
+    }
+
+    inputs.forEach(input => input.addEventListener('change', handleUpdate))
   </script>
 
 </body>
